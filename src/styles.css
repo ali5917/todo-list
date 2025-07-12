@@ -1,5 +1,3 @@
-/* Template Styles - Can be deleted for custom styling */
-
 @font-face {
   font-family: "IvyOra Display Light";
   src: url('./fonts/ivyora-display/IvyOraDisplay-Light.woff2') format('woff2');
@@ -43,18 +41,3 @@ body {
     color: var(--mainText);
 }
 
-div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-h1 {
-    font-family: "IvyOra Display Light";
-    font-weight: 200;
-    font-size: 100px;
-}
-
-/* Custom Styles */
