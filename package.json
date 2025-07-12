@@ -1,0 +1,33 @@
+{
+  "name": "webpack-template",
+  "version": "1.0.0",
+  "description": "A pre-configured Webpack 5 starter template with dev/prod modes, live reload, and deploy script.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack serve --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "deploy": "git subtree push --prefix dist origin gh-pages",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ali5917/webpack-template.git"
+  },
+  "keywords": ["webpack", "template", "starter", "boilerplate", "webpack5", "frontend", "setup"],
+  "author": "Ali Kashif",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ali5917/webpack-template/issues"
+  },
+  "homepage": "https://github.com/ali5917/webpack-template#readme",
+  "devDependencies": {
+    "css-loader": "^7.1.2",
+    "html-loader": "^5.1.0",
+    "html-webpack-plugin": "^5.6.3",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2",
+    "webpack-merge": "^6.0.1"
+  }
+}

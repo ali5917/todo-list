@@ -1,0 +1,60 @@
+/* Template Styles - Can be deleted for custom styling */
+
+@font-face {
+  font-family: "IvyOra Display Light";
+  src: url('./fonts/ivyora-display/IvyOraDisplay-Light.woff2') format('woff2');
+  font-style: normal;
+}
+:root {
+    --mainBg: #E8E4D9;
+    --mainText: #171B26;
+}
+
+*, html {
+    margin: 0;
+    padding: 0;
+    font-family: "Manrope";
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    transition: all 0.5s ease;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+button {
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    background-color: inherit;
+    padding: 1rem 3rem;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+body {
+    min-height: 100vh;
+    min-width: 100vw;
+    overflow-x: hidden;
+    background-color: var(--mainBg); 
+    color: var(--mainText);
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    font-family: "IvyOra Display Light";
+    font-weight: 200;
+    font-size: 100px;
+}
+
+/* Custom Styles */
