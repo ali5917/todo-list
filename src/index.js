@@ -6,3 +6,4 @@ const controller = init();
 
 const projectsBtn = document.getElementById("projectsBtn");
 projectsBtn.addEventListener("click", () => loadProjects(controller.projectsList));
+

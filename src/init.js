@@ -7,7 +7,9 @@ const init = () => {
 
     const task1 = new Task ("Build", "Portfolio", "Apr 12", "Regular");
     const task2 = new Task ("Run", "Sideways", "May 9", "Urgent");
+    task2.toggleComplete();
     const task3 = new Task ("Design", "Complete Homepage", "Feb 12", "Regular");
+    task3.toggleComplete();
     const task4 = new Task ("Deploy", "Complete Footer", "Jan 9", "Urgent");
     const task5 = new Task ("Buy Indgredients", "Cinnamon", "March 9", "Regular");
     const task6 = new Task ("Clean Stove", "Dettol", "Oct 24", "Regular");

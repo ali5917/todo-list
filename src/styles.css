@@ -103,7 +103,7 @@ body {
     font-size: 20px;
 }
 
-/* Projects Tab */
+/* Projects Styles*/
 .projects-cont {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -111,15 +111,15 @@ body {
 }
 
 .projects-cont .card {
-    font-family: "IvyOra Display Light";
-    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.096);
+    box-shadow: 0 2px 5px 0 rgba(144, 144, 144, 0.249);
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 1.5rem 3rem;
-    border-radius: 30px;
+    border-radius: 20px;
     font-size: 20px;
     background-color: white;
+    gap: 0.5rem;
 }
 
 .projects-cont .card:hover {
@@ -128,6 +128,71 @@ body {
     cursor: pointer;
 }
 
-.projects-cont .card .title {
+.projects-cont .title {
     font-size: 30px;
+}
+
+/* Tasks Styles*/
+.tasks-section .head {
+    font-family: "IvyOra Display Light";
+    font-weight: 300;
+}
+
+.tasks-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.tasks-cont {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.tasks-cont .card-content {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    gap: 1rem;
+    flex: 1;
+}
+
+.tasks-cont .card {
+    display: flex;
+    gap: 2rem;
+    background-color: #F1D1A8;
+    padding: 1rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px 0 rgba(144, 144, 144, 0.249);
+}
+
+.icons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.tasks-cont .title {
+    font-size: 30px;
+}
+
+.tasks-cont .inside-one {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.priority {
+    padding: 0.25rem 1rem;
+    background-color: var(--mainBg);
+    border-radius: 50px;
+}
+
+.urgent {
+    color: red;
+}
+.regular {
+    color: rgb(0, 158, 211);
 }
