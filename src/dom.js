@@ -1,3 +1,5 @@
+import image1 from './assets/img-1.png';
+
 const contentDiv = document.querySelector(".content-section");
 
 // Render Projects
@@ -134,6 +136,17 @@ function loadTasks (project) {
             duetasksDiv.appendChild(createTaskCard(task, project));
         }
     })
+
+    const emptyImg = document.createElement("img");
+    emptyImg.classList.add("empty");
+    emptyImg.src = image1;
+    
+    if (duetasksDiv.innerHTML == "") {
+        duetasksDiv.appendChild(emptyImg);
+    } 
+    if (comptasksDiv.innerHTML == "") {
+        comptasksDiv.appendChild(emptyImg);
+    }
 
     contentDiv.appendChild(tasksSection);   
 }

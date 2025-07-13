@@ -196,3 +196,9 @@ body {
 .regular {
     color: rgb(0, 158, 211);
 }
+
+.tasks-section img {
+    width: 340px;
+    margin: 1rem;
+    align-self: center;
+}
