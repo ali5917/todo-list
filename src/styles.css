@@ -223,7 +223,7 @@ body {
     position: relative;
 }
 
-.add-task-cont {
+.add-task-cont, .add-proj-cont {
     background-color: var(--mainBg);
     position: fixed;
     top: 1rem;
@@ -232,7 +232,6 @@ body {
     bottom: 1rem;
     background: transparent;
     backdrop-filter: blur(10px);
-    /* border: solid 2px var(--mainBg); */
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.329);
     display: flex;
     flex-direction: column;
@@ -257,14 +256,14 @@ body {
     transform: rotate(450deg);
 }
 
-.add-task-cont h1{
+.add-task-cont h1, .add-proj-cont h1{
     color: var(--mainText);
     font-family: "IvyOra Display Light";
     font-weight: 200;
     font-size: 60px;
 }
 
-.add-task-cont form {
+.add-task-cont form, .add-proj-cont form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -314,7 +313,6 @@ input:focus, textarea:focus {
 }
 
 .priority-form {
-    /* background: red; */
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
