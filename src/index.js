@@ -1,5 +1,5 @@
 import "./styles.css";
-import { loadProjects, loadTasks, loadUrgentTasks, renderSidebarProjects, loadUpcomingTasks } from "./dom.js";
+import { loadProjects, loadUrgentTasks, renderSidebarProjects, loadUpcomingTasks, createHeroSection } from "./dom.js";
 import init from "./init.js";
 
 const controller = init();
@@ -14,4 +14,7 @@ urgentBtn.addEventListener("click", () => loadUrgentTasks(controller));
 const dashboardBtn = document.getElementById("dashboardBtn");
 dashboardBtn.addEventListener("click", () => loadUpcomingTasks(controller));
 
-// loadProjects(controller.projectsList); // Temp
+
+
+loadUpcomingTasks(controller); // Default
+createHeroSection(controller);

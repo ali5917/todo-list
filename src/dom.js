@@ -319,6 +319,7 @@ function loadEditTaskForm(task, project, controller, tab) {
         task.priority = hiddenInput.value;
 
         if (tab === "urgent") loadUrgentTasks(controller);
+        else if (tab === "upcoming") loadUpcomingTasks(controller)
         else loadTasks(project, controller);
         editTaskCont.remove();
     });
@@ -453,10 +454,10 @@ function loadTasks (project, controller) {
 
     contentDiv.appendChild(tasksSection);   
     contentDiv.appendChild(createAddBtn("task", controller));
+    updateCount(controller);
 }
 
 // Rendering Urgent Tasks
-
 function loadUrgentTasks (controller) {
     contentDiv.innerHTML = "";
 
@@ -485,9 +486,9 @@ function loadUrgentTasks (controller) {
         project.tasksList.forEach(task => {
             if (task.priority === "Urgent") {
                 if (task.completed) {
-                    comptasksDiv.appendChild(createUrgentTaskCard(task, project, controller));
+                    comptasksDiv.appendChild(createUrgentTaskCard(task, project, controller, "urgent"));
                 } else {
-                    duetasksDiv.appendChild(createUrgentTaskCard(task, project, controller));
+                    duetasksDiv.appendChild(createUrgentTaskCard(task, project, controller, "urgent"));
                 }
             }
         });
@@ -505,9 +506,10 @@ function loadUrgentTasks (controller) {
     }
 
     contentDiv.appendChild(tasksSection);
+    updateCount(controller);
 }
 
-function createUrgentTaskCard (task, project, controller) {
+function createUrgentTaskCard (task, project, controller, flag) {
     const card = document.createElement("div");
     card.classList.add("card");
         
@@ -525,15 +527,15 @@ function createUrgentTaskCard (task, project, controller) {
 
     setBtn.addEventListener("click", () => {
         task.toggleComplete();
-        loadUrgentTasks(controller);
+        flag === "urgent" ? loadUrgentTasks(controller) : loadUpcomingTasks(controller);
+        updateCount(controller);
     });
 
     const editBtn = document.createElement("button");
     editBtn.classList.add("edit");
     editBtn.innerHTML = `<span class="material-symbols-outlined">edit</span>`;
     editBtn.addEventListener("click", () => {
-        loadEditTaskForm(task, project, controller, "urgent");
-        loadUrgentTasks(controller);
+        loadEditTaskForm(task, project, controller, flag);
     })
     const delBtn = document.createElement("button");
     delBtn.classList.add("del");
@@ -541,7 +543,8 @@ function createUrgentTaskCard (task, project, controller) {
 
     delBtn.addEventListener("click", () => {
         project.removeTask(task.title);
-        loadUrgentTasks(controller);
+        flag === "urgent" ? loadUrgentTasks(controller) : loadUpcomingTasks(controller);
+        updateCount(controller);
     })
 
     icons.appendChild(setBtn);
@@ -581,7 +584,7 @@ function createUrgentTaskCard (task, project, controller) {
     
     card.appendChild(icons);
     card.appendChild(cardContent);
-    
+
     return card;
 }
 
@@ -607,11 +610,11 @@ function loadUpcomingTasks (controller) {
     });
 
     newArr.sort((a, b) => 
-    compareDesc(parseISO(a.task.dueDate), parseISO(b.task.dueDate))
+        compareDesc(parseISO(a.task.dueDate), parseISO(b.task.dueDate))
     );
 
     newArr.forEach(({ task, project }) => {
-        tasksDiv.appendChild(createUrgentTaskCard(task, project, controller));
+        tasksDiv.appendChild(createUrgentTaskCard(task, project, controller, "upcoming"));
     })
     
     const emptyImg = document.createElement("img");
@@ -627,4 +630,62 @@ function loadUpcomingTasks (controller) {
     contentDiv.appendChild(dashTasksSection);
 }  
 
-export {loadProjects, loadUrgentTasks, renderSidebarProjects, loadUpcomingTasks};
+// Rendering Hero Section
+function createHeroSection(controller) {
+    const heroSection = document.querySelector(".hero-section");
+    heroSection.innerHTML = "";
+
+    const addBtn = document.createElement("button");
+    addBtn.className = "hero-add";
+    addBtn.innerHTML = `<span>+</span> Add Project`;
+    addBtn.addEventListener("click", () => loadProjectForm(controller));
+
+    const statsDiv = document.createElement("div");
+    statsDiv.className = "stats";
+
+    const compTasks = document.createElement("div");
+    compTasks.className = "comp-tasks";
+    const compTitle = document.createElement("p");
+    compTitle.className = "title";
+    compTitle.textContent = "Completed Tasks";
+    const compCount = document.createElement("p");
+    compCount.className = "count";
+    compTasks.appendChild(compTitle);
+    compTasks.appendChild(compCount);
+    
+    const pendTasks = document.createElement("div");
+    pendTasks.className = "pend-tasks";
+    const pendTitle = document.createElement("p");
+    pendTitle.className = "title";
+    pendTitle.textContent = "Pending Tasks";
+    const pendCount = document.createElement("p");
+    pendCount.className = "count";
+    pendTasks.appendChild(pendTitle);
+    pendTasks.appendChild(pendCount);
+
+    statsDiv.appendChild(compTasks);
+    statsDiv.appendChild(pendTasks);
+
+    heroSection.appendChild(addBtn);
+    heroSection.appendChild(statsDiv);
+    
+    document.querySelector(".dashboard-grid").appendChild(heroSection);
+    updateCount(controller);
+}
+
+function updateCount (controller) {
+    let compCount = 0, pendCount = 0;
+    controller.projectsList.forEach(project => {
+        project.tasksList.forEach(task => {
+            if (task.completed) compCount++;
+            else pendCount++;
+        });
+    });
+
+    const pendCountP = document.querySelector(".pend-tasks .count");
+    pendCountP.textContent = pendCount;
+    const compCountP = document.querySelector(".comp-tasks .count");
+    compCountP.textContent = compCount;
+}
+
+export {loadProjects, loadUrgentTasks, renderSidebarProjects, loadUpcomingTasks, createHeroSection};

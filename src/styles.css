@@ -174,7 +174,7 @@ body {
 
 .tasks-cont {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     gap: 1rem;
 }
 
@@ -415,6 +415,73 @@ input:focus, textarea:focus {
     background-color: #D9D2BF;
 }
 
-.dash-tasks {
+/* Hero Section */
 
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.hero-add {
+    align-self: flex-end;
+    background-color: #D9D2BF;
+    color: var(--mainText);
+    padding: 1rem 2.5rem;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 18px;
+    box-shadow: 0 0 2px 0 #c5b897;
+}
+
+.hero-add span {
+    font-size: 25px;
+}
+
+.hero-add:hover {
+    background-color: #b9b3a3;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.stats div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    font-size: 20px;
+    width: 15rem;
+    height: 15rem;
+    font-weight: bold;
+}
+
+.stats div .title {
+    font-family: "IvyOra Display Light";
+    font-size: 35px;
+    font-weight: 200;
+} 
+.stats div .count {
+    font-family: "Montserrat";
+    font-size: 80px;
+} 
+
+.comp-tasks {
+    background-color: #F1D1A8;
+}
+.pend-tasks {
+    background-color: #C3A49F;
 }
