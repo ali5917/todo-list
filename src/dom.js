@@ -80,6 +80,7 @@ function loadProjects (controller) {
         title.classList.add("title");
         title.textContent = project.title;
         const count = document.createElement("p");
+        count.classList.add("count");
         count.textContent = `Tasks added: ${project.tasksList.length}`;
         card.appendChild(title);
         card.appendChild(count);
