@@ -45,13 +45,59 @@ const init = () => {
     "2025-07-25",
     "Regular"
     );
-
+    task5.toggleComplete();
+    
     const task6 = new Task(
-    "Clean Kitchen Area",
-    "Sanitize stove, counters, and sink with appropriate cleaners",
-    "2025-07-27",
+        "Clean Kitchen Area",
+        "Sanitize stove, counters, and sink with appropriate cleaners",
+        "2025-07-27",
+        "Regular"
+    );
+    
+    const task7 = new Task(
+        "Implement Dark Mode Toggle",
+        "Allow users to switch between light and dark themes",
+        "2025-07-28",
+        "Regular"
+    );
+    task7.toggleComplete();
+    
+    const task8 = new Task(
+        "Optimize API Calls",
+        "Reduce redundant fetches and add error boundaries",
+        "2025-07-24",
+        "Urgent"
+    );
+    task8.toggleComplete();
+    
+    const task9 = new Task(
+        "Fix Button Hover State",
+        "Ensure consistent hover styling across components",
+        "2025-07-21",
+        "Regular"
+    );
+
+    const task10 = new Task(
+    "Improve Accessibility",
+    "Add ARIA labels and keyboard navigation support",
+    "2025-07-23",
+    "Urgent"
+    );
+
+    const task11 = new Task(
+    "Buy Fresh Basil",
+    "Get fresh basil leaves for garnish",
+    "2025-07-17",
+    "Urgent"
+    );
+
+    const task12 = new Task(
+    "Prepare Sauce Base",
+    "Saute garlic, onions, and tomatoes for 15 mins",
+    "2025-07-18",
     "Regular"
     );
+
 
     const project1 = new Project("Web Applications");
     const project2 = new Project("UI Fix");          
@@ -60,11 +106,17 @@ const init = () => {
     project1.addTask(task1);
     project1.addTask(task2);
     project1.addTask(task3);
+    project1.addTask(task8);
 
     project2.addTask(task4);
+    project1.addTask(task7);
+    project2.addTask(task9);
+    project2.addTask(task10);
 
     project3.addTask(task5);
     project3.addTask(task6);
+    project3.addTask(task11);
+    project3.addTask(task12);
 
     controller.addProject(project1);
     controller.addProject(project2);

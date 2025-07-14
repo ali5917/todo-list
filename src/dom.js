@@ -1,7 +1,7 @@
 import image1 from './assets/img-1.png';
 import Project from './modules/project';
 import Task from './modules/task';
-import { format, parseISO, compareDesc } from 'date-fns';
+import { format, parseISO, compareAsc } from 'date-fns';
 
 const contentDiv = document.querySelector(".content-section");
 
@@ -206,10 +206,19 @@ function loadTaskForm (controller) {
 
     form.addEventListener("submit", (e) => {
         e.preventDefault();
-
-        const task = new Task(titleInput.value, descInput.value, dateInput.value, hiddenInput.value);
-
+        const selectedDate = new Date(dateInput.value);
+        const today = new Date();
+        selectedDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+        
+        if (selectedDate < today) {
+            alert("Due date can't be in the past.");
+            return;
+        }    
+        
+        const task = new Task(titleInput.value.trim(), descInput.value.trim(), dateInput.value, hiddenInput.value);
         controller.activeProject.addTask(task);
+
         loadTasks(controller.activeProject, controller);
 
         form.reset();
@@ -618,15 +627,16 @@ function loadUpcomingTasks (controller) {
     head.textContent = "Upcoming Dates";
 
     let newArr = [];
-
+    const today = new Date ();
     controller.projectsList.forEach(project => {
         project.tasksList.forEach(task => {
-            if (!task.completed) newArr.push({task, project});
+            const thisDate = new Date (task.dueDate)
+            if (!task.completed && thisDate > today ) newArr.push({task, project});
         });
     });
 
     newArr.sort((a, b) => 
-        compareDesc(parseISO(a.task.dueDate), parseISO(b.task.dueDate))
+        compareAsc(parseISO(a.task.dueDate), parseISO(b.task.dueDate))
     );
 
     newArr.forEach(({ task, project }) => {
