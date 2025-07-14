@@ -1,7 +1,7 @@
 import image1 from './assets/img-1.png';
 import Project from './modules/project';
 import Task from './modules/task';
-import { format, parseISO, isToday, isPast } from 'date-fns';
+import { format, parseISO, compareDesc } from 'date-fns';
 
 const contentDiv = document.querySelector(".content-section");
 
@@ -455,6 +455,8 @@ function loadTasks (project, controller) {
     contentDiv.appendChild(createAddBtn("task", controller));
 }
 
+// Rendering Urgent Tasks
+
 function loadUrgentTasks (controller) {
     contentDiv.innerHTML = "";
 
@@ -583,4 +585,46 @@ function createUrgentTaskCard (task, project, controller) {
     return card;
 }
 
-export {loadProjects, loadUrgentTasks, renderSidebarProjects};
+// Rendering Sorted Upcoming Tasks
+function loadUpcomingTasks (controller) {
+    contentDiv.innerHTML = "";
+
+    const dashTasksSection = document.createElement("div");
+    dashTasksSection.classList.add("tasks-section");
+    
+    const tasksDiv = document.createElement("div");
+    tasksDiv.classList.add("tasks-cont");
+    const head = document.createElement("h1");
+    head.classList.add("head");
+    head.textContent = "Upcoming Tasks";
+
+    let newArr = [];
+
+    controller.projectsList.forEach(project => {
+        project.tasksList.forEach(task => {
+            if (!task.completed) newArr.push({task, project});
+        });
+    });
+
+    newArr.sort((a, b) => 
+    compareDesc(parseISO(a.task.dueDate), parseISO(b.task.dueDate))
+    );
+
+    newArr.forEach(({ task, project }) => {
+        tasksDiv.appendChild(createUrgentTaskCard(task, project, controller));
+    })
+    
+    const emptyImg = document.createElement("img");
+    emptyImg.classList.add("empty");
+    emptyImg.src = image1;
+    
+    if (tasksDiv.innerHTML == "") {
+        tasksDiv.appendChild(emptyImg);
+    }
+    dashTasksSection.appendChild(head);
+    dashTasksSection.appendChild(tasksDiv);
+
+    contentDiv.appendChild(dashTasksSection);
+}  
+
+export {loadProjects, loadUrgentTasks, renderSidebarProjects, loadUpcomingTasks};
