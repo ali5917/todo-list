@@ -1,4 +1,5 @@
 import image1 from './assets/img-1.png';
+
 import Project from './modules/project';
 import Task from './modules/task';
 import { format, parseISO, compareAsc } from 'date-fns';
