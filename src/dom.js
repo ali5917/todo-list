@@ -35,8 +35,26 @@ function loadProjects (projects) {
     contentDiv.appendChild(createAddBtn());
 }
 
-// Render Tasks
+// Rendering Task Form
+function loadTaskForm () {
+    
+}
 
+// Handling Task Priority Buttons
+document.querySelectorAll(".priority-form button").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        document.getElementById("taskPriority").value = e.target.dataset.priority;
+
+        document.querySelectorAll(".priority-form button").forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+    })
+})
+
+// Handling Task Form
+
+
+// Render Tasks
 function createTaskCard (task, project) {
     const card = document.createElement("div");
     card.classList.add("card");
