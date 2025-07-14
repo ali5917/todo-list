@@ -69,7 +69,7 @@ function loadProjectForm(controller) {
 
 // Render Projects
 function loadProjects (controller) { 
-    contentDiv.innerHTML = "";
+    contentDiv.innerHTML = ""; 
     
     const projectsDiv = document.createElement("div");
     projectsDiv.classList.add("projects-cont");
@@ -87,6 +87,7 @@ function loadProjects (controller) {
 
         card.addEventListener("click", () => {
             controller.activeProject = project; 
+            renderSidebarProjects(controller);
             loadTasks(project, controller);
         });
 
@@ -108,9 +109,14 @@ function renderSidebarProjects(controller) {
         projBtn.className = "sidebar-proj-btn";
         projBtn.textContent = project.title;
 
+        if (controller.activeProject === project) {
+            projBtn.classList.add("active");
+        } else projBtn.classList.remove("active");
+
         projBtn.addEventListener("click", () => {
             controller.activeProject = project;
             loadTasks(project, controller);
+            renderSidebarProjects(controller);
         });
 
         sidebarProjectsList.appendChild(projBtn);
@@ -417,6 +423,10 @@ function loadTasks (project, controller) {
     
     const duetasksDiv = document.createElement("div");
     duetasksDiv.classList.add("tasks-cont");
+    const pName = document.createElement("h1");
+    pName.classList.add("pName");
+    pName.textContent = controller.activeProject.title;
+    
     const head1 = document.createElement("h1");
     head1.classList.add("head");
     head1.textContent = "Due Tasks";
@@ -428,6 +438,7 @@ function loadTasks (project, controller) {
     head2.textContent = "Completed Tasks";
     
     
+    tasksSection.appendChild(pName);
     tasksSection.appendChild(head1);
     tasksSection.appendChild(duetasksDiv);
     tasksSection.appendChild(head2);

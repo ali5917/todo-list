@@ -49,11 +49,10 @@ body {
 .dashboard-grid {
     min-height: 100vh;
     display: grid;
-    grid-template-rows: 1fr 2fr;
+    grid-template-rows: auto auto;
     grid-template-columns: 1fr 5fr;
     gap: 1rem;
     padding: 1rem;
-    
 }
 
 .sidebar-section {
@@ -90,7 +89,6 @@ body {
 
 .items {
     display: flex;
-    /* background-color: lightcoral; */
     flex-direction: column; 
     width: 100%;
     gap: 1rem;
@@ -160,6 +158,16 @@ body {
     color: var(--mainText);
 }
 /* Tasks Styles*/
+.tasks-section .pName {
+    font-family: "IvyOra Display Light";
+    align-self: center;
+    /* font-family: "Montserrat"; */
+    font-size: 50px;
+    padding: 1rem 3rem;
+    background-color: #D9D2BF;
+    /* font-weight: 200; */
+}
+
 .tasks-section .head {
     font-family: "IvyOra Display Light";
     font-weight: 300;
@@ -411,7 +419,7 @@ input:focus, textarea:focus {
     box-sizing: border-box;
 }
 
-#sidebarProjectsList button:hover {
+#sidebarProjectsList button:hover,  #sidebarProjectsList button.active {
     background-color: #D9D2BF;
 }
 

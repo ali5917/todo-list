@@ -6,15 +6,25 @@ const controller = init();
 renderSidebarProjects(controller);
 
 const projectsBtn = document.getElementById("projectsBtn");
-projectsBtn.addEventListener("click", () => loadProjects(controller));
+projectsBtn.addEventListener("click", () => {
+    controller.activeProject = null;
+    renderSidebarProjects(controller);
+    loadProjects(controller);
+});
 
 const urgentBtn = document.getElementById("urgentBtn");
-urgentBtn.addEventListener("click", () => loadUrgentTasks(controller));
+urgentBtn.addEventListener("click", () => {
+    controller.activeProject = null;
+    renderSidebarProjects(controller);
+    loadUrgentTasks(controller);
+});
 
 const dashboardBtn = document.getElementById("dashboardBtn");
-dashboardBtn.addEventListener("click", () => loadUpcomingTasks(controller));
+dashboardBtn.addEventListener("click", () => {
+    controller.activeProject = null;
+    renderSidebarProjects(controller);
+    loadUpcomingTasks(controller);
+});
 
-
-
-loadUpcomingTasks(controller); // Default
 createHeroSection(controller);
+loadUpcomingTasks(controller); // Default
