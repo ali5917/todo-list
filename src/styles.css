@@ -241,6 +241,10 @@ body {
     text-align: center;
 }
 
+.tasks-cont .proj-name:hover {
+    background-color: #171b26d6;
+}
+
 .tasks-cont .inside-one {
     display: flex;
     justify-content: space-between;
@@ -341,7 +345,7 @@ input {
     font-size: 18px;
 }
 
-input:focus, textarea:focus {
+input:focus {
     background-color: #f3f0ea;   
 }
 
@@ -363,6 +367,7 @@ input:focus, textarea:focus {
     display: flex;
     gap: 1.5rem;
     align-items: center;
+    max-width: 100%;
 }
 
 .inside-form input {
@@ -499,4 +504,36 @@ input:focus, textarea:focus {
 }
 .pend-tasks {
     background-color: #C3A49F;
+}
+
+.overlay {
+    visibility: hidden;
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--mainText);
+}
+
+/* Media Queries */
+
+@media (max-width: 1240px) {
+    .add-task-cont form, .add-proj-cont form {
+        width: 50%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .overlay {
+        visibility: visible;
+    }
+    .dashboard-grid {
+        display: none;
+    }
+
+    .add-task-cont form, .add-proj-cont form {
+        width: 80%;
+    }
 }
