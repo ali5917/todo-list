@@ -97,6 +97,7 @@ function loadProjects (controller) {
     contentDiv.appendChild(projectsDiv);
     contentDiv.appendChild(createAddBtn("project", controller));
     renderSidebarProjects(controller);
+    controller.saveToLocal();
 }
 
 // Rendering Sidebar Projects
@@ -466,6 +467,7 @@ function loadTasks (project, controller) {
     contentDiv.appendChild(tasksSection);   
     contentDiv.appendChild(createAddBtn("task", controller));
     updateCount(controller);
+    controller.saveToLocal();
 }
 
 // Rendering Urgent Tasks
@@ -518,6 +520,7 @@ function loadUrgentTasks (controller) {
 
     contentDiv.appendChild(tasksSection);
     updateCount(controller);
+    controller.saveToLocal();
 }
 
 function createUrgentTaskCard (task, project, controller, flag) {
@@ -639,6 +642,7 @@ function loadUpcomingTasks (controller) {
     dashTasksSection.appendChild(tasksDiv);
 
     contentDiv.appendChild(dashTasksSection);
+    controller.saveToLocal();
 }  
 
 // Rendering Hero Section
