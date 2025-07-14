@@ -728,7 +728,6 @@ function updateCount (controller) {
     pendCountP.textContent = pendCount;
     const compCountP = document.querySelector(".comp-tasks .count");
     compCountP.textContent = compCount;
-    console.log(controller.projectsList.length);
 }
 
 export {loadProjects, loadUrgentTasks, renderSidebarProjects, loadUpcomingTasks, createHeroSection};

@@ -26,5 +26,7 @@ dashboardBtn.addEventListener("click", () => {
     loadUpcomingTasks(controller);
 });
 
-createHeroSection(controller);
-loadUpcomingTasks(controller); // Default
+document.addEventListener("DOMContentLoaded", () => {
+    createHeroSection(controller);
+    loadUpcomingTasks(controller); // Default
+});
