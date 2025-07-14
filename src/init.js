@@ -5,8 +5,8 @@ import Task from "./modules/task";
 const init = () => {
     const controller = new ProjectsController();
 
-    // controller.loadFromLocal();
-    // if (controller.projectsList.length > 0) return controller;
+    controller.loadFromLocal();
+    if (controller.projectsList.length > 0) return controller;
 
     // Initializing Tasks & Projects
     const task1 = new Task(
