@@ -94,6 +94,26 @@ function loadProjects (controller) {
     
     contentDiv.appendChild(projectsDiv);
     contentDiv.appendChild(createAddBtn("project", controller));
+    renderSidebarProjects(controller);
+}
+
+// Rendering Sidebar Projects
+function renderSidebarProjects(controller) {
+    const sidebarProjectsList = document.getElementById("sidebarProjectsList");
+    sidebarProjectsList.innerHTML = "";
+
+    controller.projectsList.forEach(project => {
+        const projBtn = document.createElement("button");
+        projBtn.className = "sidebar-proj-btn";
+        projBtn.textContent = project.title;
+
+        projBtn.addEventListener("click", () => {
+            controller.activeProject = project;
+            loadTasks(project, controller);
+        });
+
+        sidebarProjectsList.appendChild(projBtn);
+    });
 }
 
 // Rendering Task Form
@@ -203,7 +223,7 @@ function handlePriorityBtn (e) {
 
 
 // Handling Task Edit
-function loadEditTaskForm(task, project, controller) {
+function loadEditTaskForm(task, project, controller, tab) {
     const editTaskCont = document.createElement("div");
     editTaskCont.className = "add-task-cont";
 
@@ -230,6 +250,9 @@ function loadEditTaskForm(task, project, controller) {
     descInput.required = true;
     descInput.placeholder = "Description*";
     descInput.value = task.description;
+
+    const insideForm = document.createElement("div");
+    insideForm.className = "inside-form";
 
     const dateInput = document.createElement("input");
     dateInput.type = "date";
@@ -271,12 +294,16 @@ function loadEditTaskForm(task, project, controller) {
     submitBtn.className = "submitBtn";
     submitBtn.textContent = "Save Changes";
 
-    form.appendChild(titleInput);
-    form.appendChild(descInput);
-    form.appendChild(dateInput);
     priorityForm.appendChild(regBtn);
     priorityForm.appendChild(urgBtn);
-    form.appendChild(priorityForm);
+
+    insideForm.appendChild(dateInput);
+    insideForm.appendChild(priorityForm);
+
+    form.appendChild(titleInput);
+    form.appendChild(descInput);
+    form.appendChild(descInput);
+    form.appendChild(insideForm);
     form.appendChild(hiddenInput);
     form.appendChild(submitBtn);
 
@@ -285,10 +312,13 @@ function loadEditTaskForm(task, project, controller) {
 
         task.title = titleInput.value.trim();
         task.description = descInput.value.trim();
-        task.dueDate = dueDate.value;
+        if (dateInput.value) {
+            task.dueDate = dateInput.value;
+        }
         task.priority = hiddenInput.value;
 
-        loadTasks(project, controller);
+        if (tab === "urgent") loadUrgentTasks(controller);
+        else loadTasks(project, controller);
         editTaskCont.remove();
     });
 
@@ -324,7 +354,7 @@ function createTaskCard (task, project, controller) {
     const editBtn = document.createElement("button");
     editBtn.classList.add("edit");
     editBtn.innerHTML = `<span class="material-symbols-outlined">edit</span>`;
-    editBtn.addEventListener("click", () => loadEditTaskForm(task, project, controller));
+    editBtn.addEventListener("click", () => loadEditTaskForm(task, project, controller, "normal"));
         
     const delBtn = document.createElement("button");
     delBtn.classList.add("del");
@@ -498,7 +528,10 @@ function createUrgentTaskCard (task, project, controller) {
     const editBtn = document.createElement("button");
     editBtn.classList.add("edit");
     editBtn.innerHTML = `<span class="material-symbols-outlined">edit</span>`;
-        
+    editBtn.addEventListener("click", () => {
+        loadEditTaskForm(task, project, controller, "urgent");
+        loadUrgentTasks(controller);
+    })
     const delBtn = document.createElement("button");
     delBtn.classList.add("del");
     delBtn.innerHTML = `<span class="material-symbols-outlined">delete</span>`;
@@ -549,4 +582,4 @@ function createUrgentTaskCard (task, project, controller) {
     return card;
 }
 
-export {loadProjects, loadUrgentTasks};
+export {loadProjects, loadUrgentTasks, renderSidebarProjects};

@@ -1,8 +1,9 @@
 import "./styles.css";
-import { loadProjects, loadTasks, loadUrgentTasks } from "./dom.js";
+import { loadProjects, loadTasks, loadUrgentTasks, renderSidebarProjects } from "./dom.js";
 import init from "./init.js";
 
 const controller = init();
+renderSidebarProjects(controller);
 
 const projectsBtn = document.getElementById("projectsBtn");
 projectsBtn.addEventListener("click", () => loadProjects(controller));
