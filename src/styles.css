@@ -103,6 +103,19 @@ body {
     font-size: 20px;
 }
 
+.addBtn span {
+    background-color: var(--mainText);
+    color: #FBFFD0;
+    font-size: 40px;
+    padding: 0.2rem;
+    border-radius: 50%;
+    /* box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.689); */
+    border: solid 1px var(--mainText);
+    position: fixed;
+    bottom: 5rem;
+    right: 5rem;
+}
+
 /* Projects Styles*/
 .projects-cont {
     display: grid;
@@ -202,3 +215,8 @@ body {
     margin: 1rem;
     align-self: center;
 }
+
+.addBtn span:hover {
+    transform: rotate(720deg);
+}
+

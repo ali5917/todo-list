@@ -2,6 +2,13 @@ import image1 from './assets/img-1.png';
 
 const contentDiv = document.querySelector(".content-section");
 
+function createAddBtn () {
+    const btn = document.createElement("button");
+    btn.classList.add("addBtn");
+    btn.innerHTML = `<span class="material-symbols-outlined">add</span></button>`;
+    return btn;
+}
+
 // Render Projects
 function loadProjects (projects) { 
     contentDiv.innerHTML = "";
@@ -23,8 +30,9 @@ function loadProjects (projects) {
 
         projectsDiv.appendChild(card);
     })
-
+    
     contentDiv.appendChild(projectsDiv);
+    contentDiv.appendChild(createAddBtn());
 }
 
 // Render Tasks
@@ -149,6 +157,7 @@ function loadTasks (project) {
     }
 
     contentDiv.appendChild(tasksSection);   
+    contentDiv.appendChild(createAddBtn());
 }
 
 
