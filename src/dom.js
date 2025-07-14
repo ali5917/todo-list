@@ -1,21 +1,29 @@
 import image1 from './assets/img-1.png';
+import Task from './modules/task';
+import { format, parseISO, isToday, isPast } from 'date-fns';
 
 const contentDiv = document.querySelector(".content-section");
 
-function createAddBtn () {
+function createAddBtn (module, controller) {
     const btn = document.createElement("button");
     btn.classList.add("addBtn");
     btn.innerHTML = `<span class="material-symbols-outlined">add</span></button>`;
+    btn.addEventListener("click", () => {
+        if (module === "task") {
+            loadTaskForm(controller);
+        }
+    })
+
     return btn;
 }
 
 // Render Projects
-function loadProjects (projects) { 
+function loadProjects (controller) { 
     contentDiv.innerHTML = "";
     
     const projectsDiv = document.createElement("div");
     projectsDiv.classList.add("projects-cont");
-    projects.forEach(project => {
+    controller.projectsList.forEach(project => {
         const card = document.createElement("div");
         card.classList.add("card");
         const title = document.createElement("p");
@@ -26,36 +34,133 @@ function loadProjects (projects) {
         card.appendChild(title);
         card.appendChild(count);
 
-        card.addEventListener("click", () => loadTasks(project));
+        card.addEventListener("click", () => {
+            controller.activeProject = project; 
+            loadTasks(project, controller);
+        });
 
         projectsDiv.appendChild(card);
     })
     
     contentDiv.appendChild(projectsDiv);
-    contentDiv.appendChild(createAddBtn());
+    contentDiv.appendChild(createAddBtn("project", controller));
 }
 
 // Rendering Task Form
-function loadTaskForm () {
+function loadTaskForm (controller) {
+    // Create container
+    const addTaskCont = document.createElement("div");
+    addTaskCont.className = "add-task-cont";
+
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "close-btn";
+    closeBtn.innerHTML = `<span class="material-symbols-outlined">collapse_content</span>`;
+    closeBtn.addEventListener("click", () => addTaskCont.style.display= "none");
     
+    const heading = document.createElement("h1");
+    heading.textContent = "Add Task";
+
+    addTaskCont.appendChild(heading);
+    addTaskCont.appendChild(closeBtn);
+
+    const form = document.createElement("form");
+
+    const titleInput = document.createElement("input");
+    titleInput.type = "text";
+    titleInput.name = "title";
+    titleInput.required = true;
+    titleInput.placeholder = "Title*";
+    
+    const descInput = document.createElement("input");
+    descInput.type = "text";
+    descInput.name = "description";
+    // descInput.required = true;
+    descInput.placeholder = "Description*";
+    
+    const insideForm = document.createElement("div");
+    insideForm.className = "inside-form";
+    
+    const dateInput = document.createElement("input");
+    dateInput.type = "date";
+    dateInput.name = "duedate";
+    // dateInput.required = true;
+    dateInput.placeholder = "Due Date*";
+    
+    const priorityForm = document.createElement("div");
+    priorityForm.className = "priority-form";
+    
+    const regBtn = document.createElement("button");
+    regBtn.className = "reg";
+    regBtn.type = "button";
+    regBtn.setAttribute("data-priority", "Regular");
+    regBtn.textContent = "Regular";
+    regBtn.addEventListener("click", handlePriorityBtn);
+    
+    const urgBtn = document.createElement("button");
+    urgBtn.className = "urg";
+    urgBtn.type = "button";
+    urgBtn.setAttribute("data-priority", "Urgent");
+    urgBtn.textContent = "Urgent";
+    urgBtn.addEventListener("click", handlePriorityBtn);
+
+    const hiddenInput = document.createElement("input");
+    hiddenInput.type = "hidden";
+    hiddenInput.id = "taskpriority";
+    hiddenInput.name = "taskpriority";
+    hiddenInput.value = "Regular";
+    
+    const submitBtn = document.createElement("button");
+    submitBtn.type = "submit";
+    submitBtn.className = "submitBtn";
+    submitBtn.textContent = "Add Task";
+    submitBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        
+        const date = parseISO(dateInput.value);
+        const formattedDate = format(date, "EEEE, MMMM d")
+
+        const task = new Task(titleInput.value, descInput.value, formattedDate, hiddenInput.value);
+
+        controller.activeProject.addTask(task);
+        loadTasks(controller.activeProject, controller);
+
+        form.reset();
+        addTaskCont.remove();
+    })
+    
+    
+    priorityForm.appendChild(regBtn);
+    priorityForm.appendChild(urgBtn);
+    
+    insideForm.appendChild(dateInput);
+    insideForm.appendChild(priorityForm);
+    
+    form.appendChild(titleInput);
+    form.appendChild(descInput);
+    form.appendChild(insideForm);
+    form.appendChild(hiddenInput);
+    form.appendChild(submitBtn);
+
+    addTaskCont.appendChild(form);
+
+    document.body.appendChild(addTaskCont);
 }
 
 // Handling Task Priority Buttons
-document.querySelectorAll(".priority-form button").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        document.getElementById("taskPriority").value = e.target.dataset.priority;
+function handlePriorityBtn (e) {
+    e.preventDefault();
+    document.getElementById("taskpriority").value = e.target.dataset.priority;
 
-        document.querySelectorAll(".priority-form button").forEach(b => b.classList.remove("active"));
-        e.target.classList.add("active");
-    })
-})
+    document.querySelectorAll(".priority-form button").forEach(b => b.classList.remove("active"));
+    e.target.classList.add("active");
+}
+
 
 // Handling Task Form
 
 
 // Render Tasks
-function createTaskCard (task, project) {
+function createTaskCard (task, project, controller) {
     const card = document.createElement("div");
     card.classList.add("card");
         
@@ -73,7 +178,7 @@ function createTaskCard (task, project) {
 
     setBtn.addEventListener("click", () => {
         task.toggleComplete();
-        loadTasks(project);
+        loadTasks(project, controller);
     });
 
     const editBtn = document.createElement("button");
@@ -86,7 +191,7 @@ function createTaskCard (task, project) {
 
     delBtn.addEventListener("click", () => {
         project.removeTask(task.title);
-        loadTasks(project);
+        loadTasks(project, controller);
     })
 
     icons.appendChild(setBtn);
@@ -131,7 +236,7 @@ function createTaskCard (task, project) {
     return card;
 }
 
-function loadTasks (project) {
+function loadTasks (project, controller) {
     contentDiv.innerHTML = "";
 
     const tasksSection = document.createElement("div");
@@ -157,9 +262,9 @@ function loadTasks (project) {
 
     project.tasksList.forEach(task => {
         if (task.completed) {
-            comptasksDiv.appendChild(createTaskCard(task, project));
+            comptasksDiv.appendChild(createTaskCard(task, project, controller));
         } else {
-            duetasksDiv.appendChild(createTaskCard(task, project));
+            duetasksDiv.appendChild(createTaskCard(task, project, controller));
         }
     })
 
@@ -175,8 +280,8 @@ function loadTasks (project) {
     }
 
     contentDiv.appendChild(tasksSection);   
-    contentDiv.appendChild(createAddBtn());
+    contentDiv.appendChild(createAddBtn("task", controller));
 }
 
 
-export {loadProjects};
+export {loadProjects, loadTasks};

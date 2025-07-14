@@ -109,11 +109,10 @@ body {
     font-size: 40px;
     padding: 0.2rem;
     border-radius: 50%;
-    /* box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.689); */
     border: solid 1px var(--mainText);
     position: fixed;
-    bottom: 5rem;
-    right: 5rem;
+    bottom: 3rem;
+    right: 3rem;
 }
 
 /* Projects Styles*/
@@ -226,11 +225,15 @@ body {
 
 .add-task-cont {
     background-color: var(--mainBg);
-    position: absolute;
+    position: fixed;
     top: 1rem;
     left: 1rem;
     right: 1rem;
     bottom: 1rem;
+    background: transparent;
+    backdrop-filter: blur(10px);
+    /* border: solid 2px var(--mainBg); */
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.329);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -275,14 +278,14 @@ input {
     background: none;
     border: none;
     outline: none;
-    background-color: #DCD8CE;
     border-radius: 20px;
+    background-color: #D9D2BF;   
     padding: 1.5rem 3rem;
     font-size: 18px;
 }
 
 input:focus, textarea:focus {
-    background-color: #F3F0EA;    
+    background-color: #f3f0ea;   
 }
 
 .submitBtn {
