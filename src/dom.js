@@ -1,4 +1,5 @@
 import image1 from './assets/img-1.png';
+import Project from './modules/project';
 import Task from './modules/task';
 import { format, parseISO, isToday, isPast } from 'date-fns';
 
@@ -11,10 +12,59 @@ function createAddBtn (module, controller) {
     btn.addEventListener("click", () => {
         if (module === "task") {
             loadTaskForm(controller);
+        } else {
+            loadProjectForm(controller);
         }
     })
 
     return btn;
+}
+
+// Rendering Project Form 
+function loadProjectForm(controller) {
+    const addProjectCont = document.createElement("div");
+    addProjectCont.className = "add-proj-cont";
+
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "close-btn";
+    closeBtn.innerHTML = `<span class="material-symbols-outlined">collapse_content</span>`;
+    closeBtn.addEventListener("click", () => addProjectCont.remove());
+
+    const heading = document.createElement("h1");
+    heading.textContent = "Add Project";
+
+    const form = document.createElement("form");
+
+    const titleInput = document.createElement("input");
+    titleInput.type = "text";
+    titleInput.name = "projectTitle";
+    titleInput.required = true;
+    titleInput.placeholder = "Project Title*";
+
+    const submitBtn = document.createElement("button");
+    submitBtn.type = "submit";
+    submitBtn.className = "submitBtn";
+    submitBtn.textContent = "Add Project";
+
+    form.appendChild(titleInput);
+    form.appendChild(submitBtn);
+
+    addProjectCont.appendChild(closeBtn);
+    addProjectCont.appendChild(heading);
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const project = new Project(titleInput.value.trim());
+        controller.addProject(project);
+        loadProjects(controller);
+
+        form.reset();
+        addProjectCont.remove();
+    });
+
+    addProjectCont.appendChild(form);
+    document.body.appendChild(addProjectCont);
 }
 
 // Render Projects
@@ -55,7 +105,7 @@ function loadTaskForm (controller) {
     const closeBtn = document.createElement("button");
     closeBtn.className = "close-btn";
     closeBtn.innerHTML = `<span class="material-symbols-outlined">collapse_content</span>`;
-    closeBtn.addEventListener("click", () => addTaskCont.style.display= "none");
+    closeBtn.addEventListener("click", () => addTaskCont.remove());
     
     const heading = document.createElement("h1");
     heading.textContent = "Add Task";
@@ -74,7 +124,7 @@ function loadTaskForm (controller) {
     const descInput = document.createElement("input");
     descInput.type = "text";
     descInput.name = "description";
-    // descInput.required = true;
+    descInput.required = true;
     descInput.placeholder = "Description*";
     
     const insideForm = document.createElement("div");
@@ -83,7 +133,7 @@ function loadTaskForm (controller) {
     const dateInput = document.createElement("input");
     dateInput.type = "date";
     dateInput.name = "duedate";
-    // dateInput.required = true;
+    dateInput.required = true;
     dateInput.placeholder = "Due Date*";
     
     const priorityForm = document.createElement("div");
@@ -112,22 +162,7 @@ function loadTaskForm (controller) {
     const submitBtn = document.createElement("button");
     submitBtn.type = "submit";
     submitBtn.className = "submitBtn";
-    submitBtn.textContent = "Add Task";
-    submitBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        
-        const date = parseISO(dateInput.value);
-        const formattedDate = format(date, "EEEE, MMMM d")
-
-        const task = new Task(titleInput.value, descInput.value, formattedDate, hiddenInput.value);
-
-        controller.activeProject.addTask(task);
-        loadTasks(controller.activeProject, controller);
-
-        form.reset();
-        addTaskCont.remove();
-    })
-    
+    submitBtn.textContent = "Add Task";    
     
     priorityForm.appendChild(regBtn);
     priorityForm.appendChild(urgBtn);
@@ -141,8 +176,21 @@ function loadTaskForm (controller) {
     form.appendChild(hiddenInput);
     form.appendChild(submitBtn);
 
-    addTaskCont.appendChild(form);
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const date = parseISO(dateInput.value);
+        const formattedDate = format(date, "EEEE, MMMM d")
 
+        const task = new Task(titleInput.value, descInput.value, formattedDate, hiddenInput.value);
+
+        controller.activeProject.addTask(task);
+        loadTasks(controller.activeProject, controller);
+
+        form.reset();
+        addTaskCont.remove();
+    })
+
+    addTaskCont.appendChild(form);
     document.body.appendChild(addTaskCont);
 }
 
