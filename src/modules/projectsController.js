@@ -24,6 +24,7 @@ class ProjectsController {
     }
 
     saveToLocal () {
+        localStorage.removeItem("projects");
         const data = JSON.stringify(this.projectsList);
         localStorage.setItem("projects", data);
     }
@@ -34,16 +35,16 @@ class ProjectsController {
         const parsedObjects = JSON.parse(data);
         this.projectsList = parsedObjects.map(thisProject => {
             const project = new Project (thisProject.title);
-            project.tasksList.map(thisTask => {
-                const task = new Task (
-                    taskData.title,
-                    taskData.description,
-                    taskData.dueDate,
-                    taskData.priority
+            thisProject.tasksList.forEach(thisTask => {
+                const task = new Task(
+                    thisTask.title,
+                    thisTask.description,
+                    thisTask.dueDate,
+                    thisTask.priority
                 );
-                if (thisTask.completed) thisTask.toggleComplete();
-                return task;
-            })
+                if (thisTask.completed) task.toggleComplete();
+                project.addTask(task);
+            });
             return project;
         });
     }

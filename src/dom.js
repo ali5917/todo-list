@@ -489,7 +489,6 @@ function loadUrgentTasks (controller) {
     head2.classList.add("head");
     head2.textContent = "Completed Tasks";
     
-    
     tasksSection.appendChild(head1);
     tasksSection.appendChild(duetasksDiv);
     tasksSection.appendChild(head2);
@@ -588,7 +587,10 @@ function createUrgentTaskCard (task, project, controller, flag) {
     const projectName = document.createElement("p");
     projectName.classList.add("proj-name");
     projectName.textContent = project.title;
-    projectName.addEventListener("click", () => loadTasks(project, controller));
+    projectName.addEventListener("click", () => {
+        controller.activeProject = project; 
+        loadTasks(project, controller);
+    });
 
     insideOne.appendChild(date);
     insideOne.appendChild(projectName);
@@ -613,7 +615,7 @@ function loadUpcomingTasks (controller) {
     tasksDiv.classList.add("tasks-cont");
     const head = document.createElement("h1");
     head.classList.add("head");
-    head.textContent = "Upcoming Tasks";
+    head.textContent = "Upcoming Dates";
 
     let newArr = [];
 
@@ -701,6 +703,7 @@ function updateCount (controller) {
     pendCountP.textContent = pendCount;
     const compCountP = document.querySelector(".comp-tasks .count");
     compCountP.textContent = compCount;
+    console.log(controller.projectsList.length);
 }
 
 export {loadProjects, loadUrgentTasks, renderSidebarProjects, loadUpcomingTasks, createHeroSection};

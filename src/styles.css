@@ -193,6 +193,7 @@ body {
     gap: 1rem;
     flex: 1;
     min-width: 0;
+    justify-content: space-between;
 }
 
 .tasks-cont .card {
@@ -231,6 +232,7 @@ body {
     padding:  1rem 3rem;
     border-radius: 50px;
     cursor: pointer;
+    text-align: center;
 }
 
 .tasks-cont .inside-one {
