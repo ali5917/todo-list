@@ -5,8 +5,8 @@ import Task from "./modules/task";
 const init = () => {
     const controller = new ProjectsController();
 
-    controller.loadFromLocal();
-    if (controller.projectsList.length > 0) return controller;
+    // controller.loadFromLocal();
+    // if (controller.projectsList.length > 0) return controller;
 
     // Initializing Tasks & Projects
     const task1 = new Task(
@@ -36,14 +36,14 @@ const init = () => {
     "Fix Footer Responsiveness",
     "Ensure footer behaves properly on all screen sizes",
     "2032-07-22",
-    "Urgent"
+    "Regular"
     );
 
     const task5 = new Task(
     "Create Shopping List Component",
     "Develop reusable UI for managing grocery items",
     "2025-07-25",
-    "Regular"
+    "Urgent"
     );
     task5.toggleComplete();
     

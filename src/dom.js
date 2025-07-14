@@ -421,7 +421,7 @@ function createTaskCard (task, project, controller) {
     insideOne.classList.add("inside-one");
     const date = document.createElement("p");
     date.classList.add("date");
-    date.textContent = format(parseISO(task.dueDate), "EEEE, MMMM d");
+    date.textContent = format(parseISO(task.dueDate), "EEEE - MMMM d, yy");
     const priority = document.createElement("p");
     priority.classList.add("priority");
     priority.textContent = task.priority;
@@ -607,7 +607,7 @@ function createUrgentTaskCard (task, project, controller, flag) {
     insideOne.classList.add("inside-one");
     const date = document.createElement("p");
     date.classList.add("date");
-    date.textContent = format(parseISO(task.dueDate), "EEEE, MMMM d");
+    date.textContent = format(parseISO(task.dueDate), "EEEE - MMMM d, yy");
     const projectName = document.createElement("p");
     projectName.classList.add("proj-name");
     projectName.textContent = project.title;
