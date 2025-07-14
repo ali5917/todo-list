@@ -73,15 +73,30 @@ function loadProjects (controller) {
     
     const projectsDiv = document.createElement("div");
     projectsDiv.classList.add("projects-cont");
+
     controller.projectsList.forEach(project => {
         const card = document.createElement("div");
         card.classList.add("card");
+
+        const delProj = document.createElement("button");
+        delProj.classList.add("del-proj");
+        delProj.innerHTML = `<span class="material-symbols-outlined">delete</span>`;
+
+        delProj.addEventListener("click", (e) => {
+            e.stopPropagation();
+            controller.removeProject(project.title);
+            loadProjects(controller);
+            updateCount(controller);
+        })
+
         const title = document.createElement("p");
         title.classList.add("title");
         title.textContent = project.title;
         const count = document.createElement("p");
         count.classList.add("count");
         count.textContent = `Tasks added: ${project.tasksList.length}`;
+        
+        card.appendChild(delProj);
         card.appendChild(title);
         card.appendChild(count);
 
@@ -215,7 +230,7 @@ function loadTaskForm (controller) {
             alert("Due date can't be in the past.");
             return;
         }    
-        
+
         const task = new Task(titleInput.value.trim(), descInput.value.trim(), dateInput.value, hiddenInput.value);
         controller.activeProject.addTask(task);
 

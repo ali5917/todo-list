@@ -35,7 +35,7 @@ const init = () => {
     const task4 = new Task(
     "Fix Footer Responsiveness",
     "Ensure footer behaves properly on all screen sizes",
-    "2025-07-22",
+    "2032-07-22",
     "Urgent"
     );
 
@@ -57,7 +57,7 @@ const init = () => {
     const task7 = new Task(
         "Implement Dark Mode Toggle",
         "Allow users to switch between light and dark themes",
-        "2025-07-28",
+        "2036-07-28",
         "Regular"
     );
     task7.toggleComplete();
@@ -73,7 +73,7 @@ const init = () => {
     const task9 = new Task(
         "Fix Button Hover State",
         "Ensure consistent hover styling across components",
-        "2025-07-21",
+        "2035-07-21",
         "Regular"
     );
 
