@@ -171,7 +171,8 @@ body {
     align-self: center;
     font-size: 50px;
     padding: 1rem 3rem;
-    background-color: #D9D2BF;
+    /* background-color: #D9D2BF; */
+    background-color: #dfdfdf;
 }
 
 .tasks-section .head {
