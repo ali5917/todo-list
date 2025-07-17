@@ -75,6 +75,16 @@ body {
     font-size: 40px;
 }
 
+.sidebar-section button {
+    padding: 0.1rem 1rem;
+    width: 100%;
+    text-align: left;
+}
+
+.sidebar-section button.active {
+    background-color: #F1D1A8;
+}
+
 .hero-section {
     grid-area: "hero";
     background-color: #fbffd0;

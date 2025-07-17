@@ -131,6 +131,7 @@ function renderSidebarProjects(controller) {
         } else projBtn.classList.remove("active");
 
         projBtn.addEventListener("click", () => {
+            switchTab("projectsBtn");
             controller.activeProject = project;
             loadTasks(project, controller);
             renderSidebarProjects(controller);
@@ -613,7 +614,9 @@ function createUrgentTaskCard (task, project, controller, flag) {
     projectName.classList.add("proj-name");
     projectName.textContent = project.title;
     projectName.addEventListener("click", () => {
+        switchTab("projectsBtn");
         controller.activeProject = project; 
+        renderSidebarProjects(controller);
         loadTasks(project, controller);
     });
 
@@ -731,4 +734,13 @@ function updateCount (controller) {
     compCountP.textContent = compCount;
 }
 
-export {loadProjects, loadUrgentTasks, renderSidebarProjects, loadUpcomingTasks, createHeroSection};
+function switchTab (tab) {
+    const items = document.querySelectorAll(".sidebar-section .item");
+    items.forEach(item => {
+        if (item.id === tab ) {
+            item.querySelector("button").classList.add("active");
+        } else item.querySelector("button").classList.remove("active");
+    })
+}
+
+export {loadProjects, loadUrgentTasks, renderSidebarProjects, loadUpcomingTasks, createHeroSection, switchTab};
