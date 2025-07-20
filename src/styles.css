@@ -147,10 +147,10 @@ body {
 }
 
 .projects-cont .title {
+    font-size: 30px;
     overflow: hidden;  
     text-overflow: ellipsis;
     max-width: 100%;
-    font-size: 30px;
 }
 
 .projects-cont .count {
