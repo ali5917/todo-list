@@ -81,6 +81,10 @@ body {
     text-align: left;
 }
 
+.sidebar-section button:hover {
+    background-color: #f2dfc6;
+}
+
 .sidebar-section button.active {
     background-color: #F1D1A8;
 }
@@ -499,6 +503,9 @@ input:focus {
     width: 15rem;
     height: 15rem;
     font-weight: bold;
+    box-shadow: 0 0 5px 0 #000000a8;
+    background-color: black;
+    color: white;
 }
 
 .stats div .title {
@@ -509,14 +516,8 @@ input:focus {
 .stats div .count {
     font-family: "Montserrat";
     font-size: 80px;
+    color: #FBFFD0;
 } 
-
-.comp-tasks {
-    background-color: #F1D1A8;
-}
-.pend-tasks {
-    background-color: #C3A49F;
-}
 
 .overlay {
     display: block;
