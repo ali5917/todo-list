@@ -58,6 +58,7 @@ function loadProjectForm(controller) {
 
         const project = new Project(titleInput.value.trim());
         controller.addProject(project);
+        controller.activeProject = null;
         loadProjects(controller);
 
         form.reset();
@@ -684,8 +685,9 @@ function createHeroSection(controller) {
     const addBtn = document.createElement("button");
     addBtn.className = "hero-add";
     addBtn.innerHTML = `<span>+</span> Add Project`;
-    addBtn.addEventListener("click", () => loadProjectForm(controller));
-
+    addBtn.addEventListener("click", () => {
+        loadProjectForm(controller);
+    })
     const statsDiv = document.createElement("div");
     statsDiv.className = "stats";
 
