@@ -336,6 +336,8 @@ body {
 
 .add-task-cont h1, .add-proj-cont h1{
     color: var(--mainText);
+    color: rgb(204, 177, 177);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
     font-family: "IvyOra Display Light";
     font-weight: 200;
     font-size: 60px;
@@ -503,8 +505,8 @@ input:focus {
     width: 15rem;
     height: 15rem;
     font-weight: bold;
-    box-shadow: 0 0 5px 0 #000000a8;
-    background-color: black;
+    box-shadow: 0 0 5px 0 #100c07c9;
+    background-color: #11181C;
     color: white;
 }
 
